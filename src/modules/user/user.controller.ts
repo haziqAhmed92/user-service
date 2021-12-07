@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Param, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 
@@ -8,11 +8,18 @@ import { UserService, User } from './user.service';
 
 @Controller('user')
 export class UserController {
+
   public constructor(private readonly service: UserService) {}
 
   @GrpcMethod('UserService', 'findOne')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async userById(data: UserById, metadata: Metadata): Promise<User> {
+  async findOne(data: UserById, metadata: Metadata) {
     return await this.service.getUserById(data.id);
+  }
+
+  @Get(":id")
+  async getById(@Param('id') id: string): Promise<any> {
+    Logger.log(`incoming Id: ${id}`);
+    return await this.service.getUserById(id);
   }
 }
