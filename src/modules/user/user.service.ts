@@ -16,6 +16,17 @@ export class UserService {
     Logger.log(`User: ${userRecord}`);
     return userRecord;
   }
+
+  public async getUserByEmail(email: string): Promise<User> {
+    Logger.log(`incoming id: ${email}`);
+    const record = await this.userRepository.getByEmail(email);
+    const userRecord: User = {
+      id: record.notebookUserId,
+      name: record.name,
+      email: record.email,
+    };
+    return userRecord;
+  }
 }
 
 export interface User {

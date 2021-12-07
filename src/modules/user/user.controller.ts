@@ -3,7 +3,7 @@ import { Controller, Get, Param, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 
-import { UserById } from './interface/user-by-id.interface';
+import { UserDto } from './dto/user-by-id.dto';
 import { UserService, User } from './user.service';
 
 @Controller('user')
@@ -13,8 +13,14 @@ export class UserController {
 
   @GrpcMethod('UserService', 'findOne')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async findOne(data: UserById, metadata: Metadata) {
+  async findOne(data: UserDto, metadata: Metadata) {
     return await this.service.getUserById(data.id);
+  }
+
+  @GrpcMethod('UserService', 'findOneByEmail')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async findOneByEmail(data: UserDto, metadata: Metadata) {
+    return await this.service.getUserByEmail(data.email);
   }
 
   @Get(":id")
