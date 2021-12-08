@@ -4,7 +4,7 @@ import { GrpcMethod } from '@nestjs/microservices';
 import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 
 import { UserDto } from './dto/user-by-id.dto';
-import { UserService, User } from './user.service';
+import { UserService } from './user.service';
 
 import { BadRequestInterceptor } from '../../interceptors/bad-request.interceptor';
 

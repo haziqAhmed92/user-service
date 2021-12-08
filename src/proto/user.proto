@@ -19,4 +19,11 @@ message User {
     string id = 1;
     string name = 2;
     string email = 3;
+    message MeetingSettings {
+        string autoJoin = 1;
+        string sendNotesTo = 2;
+        string privacy = 3;
+        string dispatch = 4;
+    }
+    required MeetingSettings meetingSettings = 5;
 }
