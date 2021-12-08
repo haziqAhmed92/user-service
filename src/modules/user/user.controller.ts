@@ -1,11 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Logger } from '@nestjs/common';
+import { Controller, Get, Param, Logger, UseInterceptors } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 
 import { UserDto } from './dto/user-by-id.dto';
 import { UserService, User } from './user.service';
 
+import { BadRequestInterceptor } from '../../interceptors/bad-request.interceptor';
+
+@UseInterceptors(BadRequestInterceptor)
 @Controller('user')
 export class UserController {
 

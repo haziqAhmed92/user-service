@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
 import { MicroserviceOptions } from '@nestjs/microservices';
+import { ValidationPipe } from '@nestjs/common';
 import { grpcClientOptions } from './grpc-client.options';
 
 async function bootstrap() {
@@ -18,6 +19,7 @@ async function bootstrap() {
     AppModule,
     grpcClientOptions,
   );
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen();
   console.log(`User Service has been startted, listening on ${url}`);
 }
